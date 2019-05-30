@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<!--Author: Jakub Czarnecki -->
+	<meta charset="utf-8"/>
+	<meta name="description" content="Panel Magazyniera firmy COS"/>
+	<meta name="keywords" content="Panel, Magazyn, Magazynier, COS "/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<title>Panel Magazyniera</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="css/fontello.css">
+	<link href="https://fonts.googleapis.com/css?family=Anton|Lato|Pangolin" rel="stylesheet">
+	<script src="jquery-3.2.1.min.js"></script>
+	<script src="galleria/galleria-1.5.1.min.js"></script>
+	<script type="text/javascript" src="JS/timer.js"></script>
+	
+</head>
+<body onload="zegar()">
+
+	<div class="wrapper">
+		<div class="header">
+            <div class="logo">
+                <div id="clock"></div>
+                <span style="color: red;">Skompletuj</span><span style="color: blue; "> Zamówienie</span>
+            </div>
+		</div>
+		<div class="nav">
+			<ol>
+				<li><a href="index.html">Strona Główna</a></li>
+				<li><a href="dodaj.html">Dodaj Zamówienie</a></li>
+				<li><a href="skompletuj.html">Skompletuj </a></li>
+				<li><a href="#"><i class="icon-facebook-squared"></i>Fanpage</a></li>
+				<li><a href="#"><i class="icon-mail"></i>Kontakt</a></li>
+			</ol>
+		</div>
+		<div class="content">
+			<br />
+			<div style="clear: both;"></div>
+			<p>
+				<center><b>Podaj dane klienta oraz datę zamówienia.</b></center>
+				<center><form action="skompletuj.php" method="POST">
+						Imie: <input type="text" name="imie"><br />
+						Nazwisko: <input type="text" name="nazwisko"><br />
+						Nr. Telefonu: <input type="text" name="tel"><br />
+						Data Zamówienia: <input type="text" name="data_zam"><br />
+						<input type="submit"></center>
+
+			</p>
+
+		</div>
+		<div class="footer">
+			<div id="stopki">
+				<div class="stopka1">
+					mag-panel.pl &copy;
+				</div>
+				<div class="stopka2">
+					Jakub Czarnecki
+				</div>
+				<div class="stopka3">
+					Tel: 123-456-789
+				</div>
+				<div class="stopka4">
+					Magazynowa 13 
+				</div>
+				<div style="clear: both;"></div>
+			</div>
+			
+		</div>
+		
+	</div>
+	
+	
+	<script>
+
+	$(document).ready(function() {
+	var NavY = $('.nav').offset().top;
+	 
+	var stickyNav = function(){
+	var ScrollY = $(window).scrollTop();
+		  
+	if (ScrollY > NavY) { 
+		$('.nav').addClass('sticky');
+	} else {
+		$('.nav').removeClass('sticky'); 
+	}
+	};
+	 
+	stickyNav();
+	 
+	$(window).scroll(function() {
+		stickyNav();
+	});
+	});
+	</script>
+</body>
+</html>
