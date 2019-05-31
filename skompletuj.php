@@ -57,7 +57,7 @@
                 if($conn -> connect_error) {
                     die("Connection failed: " . $conn -> connect_error);
                 }
-                echo "<center> Connected successfully </br></br> </center>";
+                echo "<center> Connected successfully </br></br></br></br></center>";
 
                 $imie = $_POST["imie"];
                 $nazwisko = $_POST["nazwisko"];
@@ -73,21 +73,22 @@
                 where nazwisko like '".$nazwisko."'";
 
                 $result = mysqli_query($conn,$sql);
-				echo "<center><table>";
-
-				echo "<tr> <th>Imie</th>";
-				echo "<th>Nazwisko</th>";
-				echo "<th>Data Zamówienia</th>";
-				echo "<th>Nazwa Produktu</th>";
-				echo "<th>Ilość sztuk</th>";
-				echo "<th>Rząd</th>";
-				echo "<th>Kolumna</th>";
-				echo "<th>Kod Produktu</th> </tr>";
+				
 
                 if(mysqli_num_rows($result)>0){
+
+					echo "<center><table>";
+
+					echo "<tr> <th>Imie</th>";
+					echo "<th>Nazwisko</th>";
+					echo "<th>Data Zamówienia</th>";
+					echo "<th>Nazwa Produktu</th>";
+					echo "<th>Ilość sztuk</th>";
+					echo "<th>Rząd</th>";
+					echo "<th>Kolumna</th>";
+					echo "<th>Kod Produktu</th> </tr>";
+
                     while($row = mysqli_fetch_array($result)){
-                       // echo "<center><b>Imie:</b> ".$row[0]." <b>Nazwisko:</b> ".$row[1]." </br></br><b>Data Zamówienia:</b> ".$row[2]." </br></br><b>Nazwa produktu:</b> ".$row[3]." <b>Ilość sztuk:</b> ".$row[4]." <b>Rząd:</b> ".$row[5]." <b>Kolumna:</b> ".$row[6]." <b>Kod Produktu:</b> ".$row[7]."</center>";
-						//echo "</br></br>";
 						
 						echo "<tr> <td>".$row[0]."</td>";
 						echo "<td>".$row[1]."</td>";
@@ -98,10 +99,15 @@
 						echo "<td>".$row[6]."</td>";
 						echo "<td>".$row[7]."</td> </tr>";
 
-                    }
-				}
+					}
 
-				echo "</table></center>";
+					echo "</table></center>";
+				} else {
+					echo "<center>Brak Zamówień.</center>";
+				}
+				
+
+				
                 mysqli_close($conn);
             ?>
 			</p>

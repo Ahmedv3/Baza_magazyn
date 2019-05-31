@@ -49,69 +49,37 @@
                 if($conn -> connect_error) {
                     die("Connection failed: " . $conn -> connect_error);
                 }
-				echo "<center> Connected successfully </center>";
+				echo "<center> Connected </center>";
 				
 
 				$imie = $_POST["imie"];
                 $nazwisko = $_POST["nazwisko"];
-                $tel = $_POST["tel"];
-				$data = $_POST["data_zam"];
-				$prod_nazwa = $_POST["prod_nazwa"];
-				$sztuk = $_POST["sztuk"];
+                $miasto = $_POST["miasto"];
+                $adres = $_POST["adres"];
+				$kod = $_POST["kod"];
+				$tel = $_POST["tel"];
 				
-				$sqlidk = "select idk 
-                from klient
-                where nazwisko like '".$nazwisko."'";
+				$sqlSelect = "select imie, nazwisko, miasto, adres, kod_pocztowy, telefon from klient
+				where imie like '".$imie."' and nazwisko like '".$nazwisko."' and miasto like '".$miasto."' and kod_pocztowy like '".$kod."' and telefon like '".$tel."' ";
 
-                $resultIdk = mysqli_query($conn,$sqlidk);
+				$result = mysqli_query($conn,$sqlSelect);
 
-                if(mysqli_num_rows($resultIdk)>0){
-                    while($row = mysqli_fetch_array($resultIdk)){
-						$idk = $row[0];
-                    }
+
+				if(mysqli_num_rows($result)>0){
+					die("<center>Klient o takich damych jest już w bazie klientów.</center>");
+				} else {
+
+					$sql = "INSERT INTO klient(imie,nazwisko,miasto,adres,kod_pocztowy,telefon)
+					VALUES
+					('$imie','$nazwisko','$miasto','$adres','$kod','$tel')";
+
+
+					if(!mysqli_query($conn,$sql)){
+						die('Error: ' . mysqli_error($conn));
+					}
+					echo "<center> Nowy klient dodany! </center>";
+
 				}
-
-				$sqlidp = "select idp 
-                from produkt
-                where nazwa like '".$prod_nazwa."'";
-
-                $resultIdp = mysqli_query($conn,$sqlidp);
-
-                if(mysqli_num_rows($resultIdp)>0){
-                    while($row = mysqli_fetch_array($resultIdp)){
-						$idp = $row[0];
-                    }
-				}
-
-				$sql_insert_klientZam = "INSERT INTO zamowienia(k_id, p_id, data_zamowienia)
-                VALUES
-                ('$idk','$idp','$_POST[data_zam]')";
-
-                if(!mysqli_query($conn,$sql_insert_klientZam)){
-                    die('Error: ' . mysqli_error($conn));
-                }
-				echo "<center> 1 record added to zamowienia. </center>";
-
-				$sqlidz = "select idz 
-                from zamowienia
-                where data_zamowienia like '".$data."'";
-
-                $resultIdz = mysqli_query($conn,$sqlidz);
-
-                if(mysqli_num_rows($resultIdz)>0){
-                    while($row = mysqli_fetch_array($resultIdz)){
-						$idz = $row[0];
-                    }
-				}
-
-				$sql_insertZam = "INSERT INTO zamow_klienta (z_id, sztuk)
-                VALUES
-                ('$idz','$sztuk')";
-
-                if(!mysqli_query($conn,$sql_insertZam)){
-                    die('Error: ' . mysqli_error($conn));
-                }
-				echo "<center> 1 record added to zamow_klienta. </center>";
 
                 mysqli_close($conn);
 				

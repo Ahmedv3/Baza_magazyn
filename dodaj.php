@@ -69,6 +69,8 @@
                     while($row = mysqli_fetch_array($resultIdk)){
 						$idk = $row[0];
                     }
+				} else {
+					die("Nie ma takiego klienta.");
 				}
 
 				$sqlidp = "select idp 
@@ -81,6 +83,8 @@
                     while($row = mysqli_fetch_array($resultIdp)){
 						$idp = $row[0];
                     }
+				} else {
+					die("Nie ma takiego produktu na magazynie.");
 				}
 
 				$sql_insert_klientZam = "INSERT INTO zamowienia(k_id, p_id, data_zamowienia)
